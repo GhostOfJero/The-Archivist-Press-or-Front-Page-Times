@@ -3,8 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vintage Newspaper Generator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>The Archivist's Press - Vintage Newspaper Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        body {
+            background-color: #f5f1e6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #8c6d46;
+            padding-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #8c6d46;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-style: italic;
+            color: #666;
+            font-size: 1.2rem;
+        }
+        
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .upload-section {
+            background: #f9f7f2;
+            padding: 25px;
+            border: 1px dashed #8c6d46;
+            text-align: center;
+        }
+        
+        .upload-btn {
+            background: #8c6d46;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        
+        .upload-btn:hover {
+            background: #6b5435;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .control-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #f9f7f2;
+        }
+        
+        .newspaper-preview {
+            background: #f0e6d3;
+            padding: 30px;
+            border: 1px solid #b39f7a;
+            position: relative;
+            min-height: 500px;
+        }
+        
+        .newspaper-content {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" opacity="0.04"><rect width="400" height="400" fill="black"/></svg>');
+            padding: 30px;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .newspaper-date {
+            text-align: right;
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .newspaper-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-family: "Old English Text MT", "Times New Roman", serif;
+            margin-bottom: 20px;
+            color: #000;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+        
+        .headline {
+            font-family: "Times New Roman", serif;
+            font-size: 2.2rem;
+            text-align: center;
+            margin: 25px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .article {
+            column-count: 2;
+            column-gap: 30px;
+            text-align: justify;
+            margin-bottom: 25px;
+        }
+        
+        .article p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+        
+        .image-placeholder {
+            text-align: center;
+            margin: 20px 0;
+            background: #e6dcc5;
+            padding: 20px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .generate-btn {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin: 20px auto;
+            display: block;
+            transition: background 0.3s;
+        }
+        
+        .generate-btn:hover {
+            background: #1a252f;
+        }
+        
+        .sample-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .sample-item {
+            width: 150px;
+            height: 150px;
+            background: #ddd;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .sample-item:hover {
+            border-color: #8c6d46;
+        }
+        
+        .sample-item div {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #b39f7a;
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .article {
+                column-count: 1;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .newspaper-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -14,14 +245,132 @@
         </header>
         
         <div class="app-container">
-            <!-- Your app content here -->
+            <div class="upload-section">
+                <h2>Upload Your Photograph</h2>
+                <p>Select an image to transform into a vintage newspaper artwork</p>
+                <button class="upload-btn">Choose Image</button>
+                
+                <div class="sample-gallery">
+                    <div class="sample-item" onclick="selectSample(1)"><div>Portrait</div></div>
+                    <div class="sample-item" onclick="selectSample(2)"><div>Landscape</div></div>
+                    <div class="sample-item" onclick="selectSample(3)"><div>Cityscape</div></div>
+                    <div class="sample-item" onclick="selectSample(4)"><div>Event</div></div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="era-select">Historical Era</label>
+                    <select id="era-select">
+                        <option>Early 1800s (1800-1830)</option>
+                        <option>Mid-1800s (1830-1860)</option>
+                        <option>Late 1800s (1860-1890)</option>
+                        <option>Victorian England</option>
+                        <option>Wild West America</option>
+                        <option>Industrial Revolution</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="paper-style">Paper Style</label>
+                    <select id="paper-style">
+                        <option>Standard Newspaper</option>
+                        <option>Gazette</option>
+                        <option>Bulletin</option>
+                        <option>Journal</option>
+                        <option>Times</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="headline-style">Headline Style</label>
+                    <select id="headline-style">
+                        <option>Breaking News</option>
+                        <option>Historical Account</option>
+                        <option>Personal Story</option>
+                        <option>Scientific Discovery</option>
+                        <option>Political Event</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="newspaper-preview">
+                <div class="newspaper-content">
+                    <div class="newspaper-date">Saturday, April 12, 1873</div>
+                    <div class="newspaper-title">The Daily Chronicle</div>
+                    
+                    <div class="headline">
+                        LOCAL INDUSTRIALIST UNVEILS MARVEL OF MODERN ENGINEERING
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        [Transformed Image Will Appear Here]
+                    </div>
+                    
+                    <div class="article">
+                        <p>In a remarkable demonstration of technological progress, prominent industrialist Mr. Alistair Whitcombe yesterday unveiled what he calls "the future of transportation" - a horseless carriage powered by steam.</p>
+                        
+                        <p>The extraordinary vehicle, constructed at considerable expense in Mr. Whitcombe's own workshops, astonished onlookers with its ability to propel itself along the cobbled streets of our fair city without equine assistance.</p>
+                        
+                        <p>"This invention will fundamentally alter how we conceive of distance and travel," claimed Mr. Whitcombe, standing proudly beside his creation. "Within a decade, every family of means will possess such a device."</p>
+                        
+                        <p>While several bystanders expressed concerns regarding the safety and reliability of such contraptions, most agreed that Mr. Whitcombe's invention represents a significant leap forward in mechanical engineering.</p>
+                        
+                        <p>The vehicle's maiden voyage proceeded without incident along the length of High Street, reaching speeds previously unimaginable for personal transport. Several ladies were noted to have swooned at the spectacle.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="generate-btn">Generate Vintage Newspaper</button>
         </div>
         
         <footer>
-            <p>The Archivist's Press &copy; 2023</p>
+            <p>The Archivist's Press &copy; 2023 | Using AI technology to bring history to life</p>
         </footer>
     </div>
-    
-    <script src="script.js"></script>
+
+    <script>
+        function selectSample(sampleNum) {
+            const headlines = [
+                "PORTRAIT OF DISTINCTION: PROMINENT FIGURE CAPTURED FOR POSTERITY",
+                "MAJESTIC LANDSCAPE REVEALED: EXPLORERS BRING BACK WONDROUS IMAGES",
+                "CITY TRANSFORMED: MODERN MARVELS RISE AMIDST HISTORIC ARCHITECTURE",
+                "EXTRAORDINARY EVENT ASTOUNDS ATTENDEES: WITNESSES SPEAK OF MARVEL"
+            ];
+            
+            const titles = ["The Daily Chronicle", "The Evening Post", "The Mercury", "The Gazette"];
+            const dates = ["Monday, June 5, 1882", "Tuesday, November 12, 1867", "Friday, March 23, 1855", "Wednesday, August 9, 1891"];
+            
+            document.querySelector('.headline').textContent = headlines[sampleNum - 1];
+            document.querySelector('.newspaper-title').textContent = titles[sampleNum - 1];
+            document.querySelector('.newspaper-date').textContent = dates[sampleNum - 1];
+            
+            document.querySelector('.image-placeholder').innerHTML = 
+                `<div style="padding: 20px; background: #d4c6a8; color: #6b5435; font-weight: bold;">Sample ${sampleNum} Vintage Transformation</div>`;
+            
+            // Simulate a loading effect
+            const btn = document.querySelector('.generate-btn');
+            btn.textContent = "Generating...";
+            
+            setTimeout(() => {
+                btn.textContent = "Generate Vintage Newspaper";
+                alert("Transformation complete! In a full implementation, your image would now be styled as vintage newspaper art.");
+            }, 1500);
+        }
+        
+        // Add event listeners to buttons
+        document.querySelector('.upload-btn').addEventListener('click', function() {
+            alert("In a full implementation, this would open a file dialog to select an image.");
+        });
+        
+        document.querySelector('.generate-btn').addEventListener('click', function() {
+            this.textContent = "Generating...";
+            
+            setTimeout(() => {
+                this.textContent = "Generate Vintage Newspaper";
+                alert("Newspaper generated! In a full implementation, your image would be transformed using AI.");
+            }, 1500);
+        });
+    </script>
 </body>
 </html>
